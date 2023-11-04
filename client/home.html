@@ -20,9 +20,7 @@
 
     <script>
         function hostGame(){
-            fetch("/newgame",{
-                method: "POST"
-            }).then((res)=>{
+            fetch("/newgame").then((res)=>{
                 console.log(res);
             })
         }
