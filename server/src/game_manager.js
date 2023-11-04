@@ -14,15 +14,19 @@ class GameManager {
 		this.io = io;
 	}
 
+	getGame(player) {
+		return this.players[player].gameId;
+	}
+
 	createGame() {
 		let id = randomInt(1000, 9999);
-		this.games[id] = new Game(io, id);
+		this.games[id.toString()] = new Game(this.io, id.toString());
 		return id;
 	}
 
-	playerJoined(game, player) {
+	playerJoin(game, player) {
 		this.players[player] = new Player(player, game);
-		return this.games[game].join(players[player]);
+		return this.games[game].join(this.players[player]);
 	}
 
 	playerLeft(player) {

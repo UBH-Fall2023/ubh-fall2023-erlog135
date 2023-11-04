@@ -19,18 +19,18 @@ class Game {
 
 	join(player) {
 		if (this.running) return -1;
-		if (this.players.contains(player)) return -1;
-		if (pc >= Game.MAX_PLAYERS) return -1;
-		pc++;
+		if (this.players.hasOwnProperty(player)) return -1;
+		if (this.pc >= Game.MAX_PLAYERS) return -1;
+		this.pc++;
 		this.players[player.id] = player;
-		if (pc == 0) {
+		if (this.pc == 0) {
 			this.io.to(player.id).emit("chosen-one");
 		}
 		return 0;
 	}
 
 	leave(player) {
-		pc--;
+		this.pc--;
 		this.io.to(id).emit("disconnect", player);
 		delete this.players[player];
 	}

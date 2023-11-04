@@ -23,17 +23,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/newgame", (req, res) => {
-	res.send(gameManager.createGame());
+	res.send(gameManager.createGame().toString());
 });
 
 app.get("/g/:room", (req, res) => {
 	res.sendFile(join(__dirname, "game.html"));
-	console.log(req.params["room"]);
 });
 
 io.on("connection", (socket) => {
 	console.log("connection established");
-	let state = gameManager.playerJoin(socket.handshake.auth.token, socket.id);
+	if (socket.handshake.headers.room == undefined) return;
+	let state = gameManager.playerJoin(
+		socket.handshake.headers.room,
+		socket.id
+	);
 	if (state == 0) {
 		socket.join(gameManager.getGame(socket.id));
 		socket.join(socket.id);
