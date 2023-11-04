@@ -79,6 +79,11 @@ body {
     font-weight: bold;
 }
 
+.game-button:disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .game-button:hover{
     cursor: pointer;
     background-color: deepskyblue;
@@ -96,4 +101,19 @@ body {
 #description {
     margin: 0px;
     height: 100%;
+}
+
+#nicknameInput {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin: 50px;
+    height: 30px;
+    font-size: 24px;
+    background-color: transparent;
+    border: 2px solid deepskyblue;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
 }
