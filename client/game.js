@@ -6,3 +6,11 @@ let editor = ace.edit("editor", {
 });
 
 console.log(editor);
+
+function onResetButtonClicked(){
+    console.log("reset clicked");
+}
+
+function onSubmitButtonClicked(){
+    console.log("submit clicked");
+}
