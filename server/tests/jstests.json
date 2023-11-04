@@ -1,0 +1,8 @@
+{
+	"0": {
+		"name": "syntax 1",
+		"description": "Find the error in this code segment.",
+		"brokenpath": "server/testsraw/syntax1.js",
+		"testpath": "/server/testers/syntex1tester.js"
+	}
+}
