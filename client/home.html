@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Hi</h1>
+    <div class="div-center mb-5">     
+        <button class="home-button" onclick="hostGame()">Host</button>
+    </div>
+    <div class="div-center">     
+        <button class="home-button" onclick="joinGame()">Join<span>
+            <input placeholder="Room code" id="joinCodeInput" type="text">
+        </span></button>
+       
+    </div>
+
+    <script>
+        function hostGame(){
+            alert("hi");
+        }
+
+        function joinGame(){
+            let code = document.getElementById("joinCodeInput").value;
+            
+            if(code.length == 4){
+                location.href = location.href.substring(0,location.href.length-9)+code
+            }
+            
+            
+        }
+    </script>
+</body>
+</html>
