@@ -43,6 +43,7 @@ io.on("connection", (socket) => {
 	} else {
 		socket.join(socket.id);
 		io.to(socket.id).emit("failed-connect");
+		return;
 	}
 
 	socket.on("disconnect", () => {

@@ -25,6 +25,7 @@ class GameManager {
 	}
 
 	playerJoin(game, player) {
+		if (!this.games.hasOwnProperty(game)) return -1;
 		this.players[player] = new Player(player, game);
 		return this.games[game.toString()].join(this.players[player]);
 	}
@@ -37,7 +38,7 @@ class GameManager {
 	setPlayerName(player, nickname) {
 		this.players[player].nickname = nickname;
 		this.io
-			.to(players[player].gameId)
+			.to(this.players[player].gameId)
 			.emit("player-joined", player, nickname);
 	}
 
