@@ -1,7 +1,7 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { GameManager } from "./server/src/game_manager";
+import { GameManager } from "./server/src/game_manager.js";
 
 const app = express();
 const port = 3011;
