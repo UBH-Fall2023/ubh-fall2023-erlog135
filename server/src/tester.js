@@ -1,27 +1,23 @@
 import { cwd } from "node:process";
 import tests from "../tests/jstests.json" with { type: 'json' };
+import util from "node:util";
 import { execFile } from 'node:child_process';
+const asyncExec = util.promisify(execFile);
 
 class Tester {
 	getTests(n) {
-		return tests[0]["syntax1"];
+		return {"name": "syntax1", "content": tests[0]["syntax1"] };
 	}
 }
 
 class JSTester extends Tester {
 	test(data, filename) {
-		const proc = execFile('node', ['./testers/' + data['tester'], '../user/' + filename], (error, stdout, stderr) => {
-			if(error) {
-				console.error(error);
-			}
-			console.log(stdout);
-		});
+		const { error, stdout, stderr } = await asyncExec('node', ['./testers/' + data['tester'], '../user/' + filename]);
+		if(error) {
+			return -1;
+		}
+		return 0;
 	}
 }
-
-let tester = new JSTester();
-let test = tester.getTests(1);
-
-console.log(tester.test(test, "john.js"));
 
 export { JSTester };

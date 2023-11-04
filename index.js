@@ -1,6 +1,7 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import { GameManager } from "./server/src/game_manager";
 
 const app = express();
 const port = 3011;
@@ -9,10 +10,11 @@ const io = new Server(server);
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { randomInt } from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(dirname(__filename), "client");
+
+const gameManager = new GameManager(io);
 
 app.use(express.static("client"));
 app.use("/g", express.static("client"));
@@ -21,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/newgame", (req, res) => {
-	res.send(randomInt(1000, 9999).toString());
+	res.send(gameManager.createGame());
 });
 
 app.get("/g/:room", (req, res) => {
@@ -31,6 +33,30 @@ app.get("/g/:room", (req, res) => {
 
 io.on("connection", (socket) => {
 	console.log("connection established");
+	let state = gameManager.playerJoin(socket.handshake.auth.token, socket.id);
+	if (state == 0) {
+		socket.join(gameManager.getGame(socket.id));
+		socket.join(socket.id);
+	} else {
+		socket.join(socket.id);
+		io.to(socket.id).emit("failed-connect");
+	}
+
+	socket.on("disconnect", () => {
+		gameManager.playerLeft(socket.id);
+	});
+
+	socket.on("nick-name", (name) => {
+		gameManager.setPlayerName(socket.id, name);
+	});
+
+	socket.on("start-game", () => {
+		gameManager.startGame(socket.id);
+	});
+
+	socket.on("submit", (puzzle, user_code) => {
+		gameManager.submitPuzzle(socket.id, user_code);
+	});
 });
 
 server.listen(port, () => {
