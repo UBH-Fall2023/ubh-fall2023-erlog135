@@ -14,3 +14,6 @@ function onResetButtonClicked(){
 function onSubmitButtonClicked(){
     console.log("submit clicked");
 }
+
+const socket = io();
+
