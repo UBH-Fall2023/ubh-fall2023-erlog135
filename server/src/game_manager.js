@@ -37,13 +37,11 @@ class GameManager {
 
 	setPlayerName(player, nickname) {
 		this.players[player].nickname = nickname;
-		let players = [];
+		let tp = {};
 		for (const p of this.players.keys()) {
-			players.push({ id: p, name: p.nickname });
+			tp[p] = p.nickname;
 		}
-		this.io
-			.to(this.players[player].gameId)
-			.emit("player-joined", player, nickname, players);
+		this.io.to(this.players[player].gameId).emit("players", tp);
 	}
 
 	startGame(player) {
