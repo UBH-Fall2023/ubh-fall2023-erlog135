@@ -24,7 +24,9 @@
             .then((res)=>{
                 res.json()
                 .then((body)=>{
-                    console.log(body);
+                   
+                    location.href = location.href + "/g/"+ JSON.stringify(body);
+
                 });
             })
         }
