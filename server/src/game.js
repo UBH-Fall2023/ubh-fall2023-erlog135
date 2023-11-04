@@ -31,7 +31,7 @@ class Game {
 
 	leave(player) {
 		this.pc--;
-		this.io.to(id).emit("disconnect", player);
+		this.io.to(this.id).emit("player-leave", player);
 		delete this.players[player];
 	}
 

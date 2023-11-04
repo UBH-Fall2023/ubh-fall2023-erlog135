@@ -26,11 +26,11 @@ class GameManager {
 
 	playerJoin(game, player) {
 		this.players[player] = new Player(player, game);
-		return this.games[game].join(this.players[player]);
+		return this.games[game.toString()].join(this.players[player]);
 	}
 
 	playerLeft(player) {
-		this.games[player.gameId].leave(player);
+		this.games[this.players[player].gameId].leave(player);
 		delete this.players[player];
 	}
 
