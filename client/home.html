@@ -20,8 +20,12 @@
 
     <script>
         function hostGame(){
-            fetch("/newgame").then((res)=>{
-                console.log(res);
+            fetch("/newgame")
+            .then((res)=>{
+                res.json()
+                .then((body)=>{
+                    console.log(body);
+                });
             })
         }
 
