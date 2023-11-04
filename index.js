@@ -9,17 +9,28 @@ const io = new Server(server);
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { randomInt } from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(dirname(__filename), "client");
 
 app.use(express.static("client"));
+app.use("/g", express.static("client"));
 app.get("/", (req, res) => {
 	res.sendFile(join(__dirname, "home.html"));
 });
 
-app.get("/:room", (req, res) => {
+app.get("/newgame", (req, res) => {
+	res.send(randomInt(1000, 9999).toString());
+});
+
+app.get("/g/:room", (req, res) => {
+	res.sendFile(join(__dirname, "game.html"));
 	console.log(req.params["room"]);
+});
+
+io.on("connection", (socket) => {
+	console.log("connection established");
 });
 
 app.listen(port, () => {
