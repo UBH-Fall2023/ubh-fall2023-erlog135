@@ -33,6 +33,6 @@ io.on("connection", (socket) => {
 	console.log("connection established");
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log(`listening on port ${port}`);
 });
