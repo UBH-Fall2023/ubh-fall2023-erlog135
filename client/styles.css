@@ -1,0 +1,32 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(26, 45, 45);
+    color: white;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.div-center{
+    display: flex;
+    justify-content: center;
+}
+
+.home-button{
+    color: white;
+    font-size: 30px;
+    background-color: transparent;
+    border: 2px solid deepskyblue;
+    width: 100%;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.home-button:hover{
+    cursor: pointer;
+}
+
+.mb-5{
+    margin-bottom: 5px;
+}
