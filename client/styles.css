@@ -24,7 +24,9 @@ body {
 }
 
 .home-button:hover{
+    color:black;
     cursor: pointer;
+    background-color: deepskyblue;
 }
 
 .mb-5{
