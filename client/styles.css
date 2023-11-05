@@ -31,6 +31,19 @@ body {
 .div-center{
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+#joinCodeInput{
+    margin-left: 25px;
+
+    height: 32px;
+    font-size: 24px;
+    background-color: transparent;
+    border: 2px solid deepskyblue;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .home-button{
