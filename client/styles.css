@@ -20,6 +20,10 @@ body {
     box-shadow: 0 0 80px tomato;
 }
 
+.bg-glow-success{
+    box-shadow: 0 0 80px springgreen;
+}
+
 .bg-glow-waiting{
     box-shadow: 0 0 40px skyblue;
 }
@@ -37,12 +41,13 @@ body {
 #joinCodeInput{
     margin-left: 25px;
 
-    height: 32px;
+    height: 36px;
     font-size: 24px;
     background-color: transparent;
     border: 2px solid deepskyblue;
     border-radius: 8px;
     color: white;
+    padding: 0;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -57,6 +62,7 @@ body {
     width: 100%;
     margin-left: 25px;
     margin-right: 25px;
+    height: 40px;
 }
 
 .home-button:hover{

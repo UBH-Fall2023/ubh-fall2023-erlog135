@@ -203,6 +203,13 @@ socket.on("failed-puzzle", async (args)=>{
     submitButton.innerText = "Submit";
 });
 
+socket.on("passed-puzzle", async ()=>{
+    editorElement.classList.replace("bg-glow-ambient","bg-glow-success");
+    await wait(1000);
+    editorElement.classList.replace("bg-glow-success","bg-glow-ambient");
+
+})
+
 socket.on("players", (newPlayers)=>{
 
     for(const id in newPlayers){
