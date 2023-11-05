@@ -11,7 +11,8 @@ class Tester {
 		let ex = n % Object.keys(tests).length;
 		let out = [];
 		for (let i = 0; i < Object.keys(tests).length; i++) {
-			for (let j = 0; j < perdiff; j++) {
+			let j;
+			for (j = 0; j < perdiff; j++) {
 				let randpuzz = Object.keys(tests[i])[randomInt(0, Object.keys(tests[i]).length)];
 				out.push({"name": randpuzz, "content": tests[i][randpuzz]});
 			}
