@@ -90,6 +90,21 @@
 			"description": "Input: Two objects with x and y properties. \n Output the slope of the line between those points.",
 			"brokenpath": "slope2.js",
 			"tester": "slopetester.js"
+		},
+		"zeropad1":{
+			"description": "Input: A number and a target length. \n Output the number as a string, with enough zeroes at the beginning to reach the target length.",
+			"brokenpath": "zeropad1.js",
+			"tester": "zeropadtester.js"
+		},
+		"zeropad2":{
+			"description": "Input: A number and a target length. \n Output the number as a string, with enough zeroes at the beginning to reach the target length.",
+			"brokenpath": "zeropad2.js",
+			"tester": "zeropadtester.js"
+		},
+		"zeropad3":{
+			"description": "Input: A number and a target length. \n Output the number as a string, with enough zeroes at the beginning to reach the target length.",
+			"brokenpath": "zeropad3.js",
+			"tester": "zeropadtester.js"
 		}
 	},
 	"4": {
@@ -107,6 +122,21 @@
 			"description": "Recursively searches an array for an element and returns the index of that element.",
 			"brokenpath": "recurr3.js",
 			"tester": "recsearchtester.js"
+		},
+		"difficulty1":{
+			"description": "Input: A numerical player score. \n Output the difficulty value, at most 1000 and at least 0.",
+			"brokenpath": "difficulty1.js",
+			"tester": "difficultytester.js"
+		},
+		"difficulty2":{
+			"description": "Input: A numerical player score. \n Output the difficulty value, at most 1000 and at least 0.",
+			"brokenpath": "difficulty2.js",
+			"tester": "difficultytester.js"
+		},
+		"difficulty3":{
+			"description": "Input: A numerical player score. \n Output the difficulty value, at most 1000 and at least 0.",
+			"brokenpath": "difficulty3.js",
+			"tester": "difficultytester.js"
 		}
 	},
 	"5": {
@@ -124,6 +154,16 @@
 			"description": "Sorts an array in decreasing order.",
 			"brokenpath": "selectionsort3.js",
 			"tester": "sel_sort_tester.js"
+		},
+		"cardinalfacing1":{
+			"description": "Input: A player's x and y velocity. \n Output the cardinal direction (north, east, south, west) as a char.\nNegative x is left, positive x is right, negative y is up, and positive y is down",
+			"brokenpath": "cardinalfacing1.js",
+			"tester": "cardinalfacingtester.js"
+		},
+		"cardinalfacing2":{
+			"description": "Input: A player's x and y velocity. \n Output the cardinal direction (north, east, south, west) as a char.\nNegative x is left, positive x is right, negative y is up, and positive y is down",
+			"brokenpath": "cardinalfacing2.js",
+			"tester": "cardinalfacingtester.js"
 		}
 	}
 }

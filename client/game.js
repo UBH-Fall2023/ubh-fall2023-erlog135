@@ -13,8 +13,8 @@ const GAME_END = 4;
 
 const random_chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()-=_+[]{},.<>/?;:`~"
 
-const TRANSITION_TIME = 1000;
-const TRANSITION_STEPS = 20;
+const TRANSITION_TIME = 500;
+const TRANSITION_STEPS = 10;
 
 let roomId = window.location.href.substring(window.location.href.length-4,window.location.href.length);
 
@@ -82,8 +82,7 @@ async function onLobbyJoined(){
     editorElement.hidden = false;
     editorElement.classList.replace("bg-glow-none","bg-glow-ambient");
 
-    addNicknames();
-    
+    addNicknames();    
 }
 
 async function onGameStart(){
@@ -286,4 +285,19 @@ async function dissolve(dissolve, text=""){
         await wait(TRANSITION_TIME/TRANSITION_STEPS);
         editor.session.setValue(stage);
     }
+}
+
+async function title(){//to show the title
+
+	let st1 = await (await fetch("/debug.txt")).text();
+	let st2 = await (await fetch("/athon.txt")).text();
+
+	
+
+	await dissolve(false,st1);
+	await wait(1000);
+	await dissolve(true);
+	await dissolve(false,st2);
+	await wait(1000);
+	await dissolve(true);
 }
