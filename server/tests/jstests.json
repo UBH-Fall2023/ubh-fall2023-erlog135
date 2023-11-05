@@ -96,34 +96,34 @@
 		"recurr1": {
 			"description": "Recursively searches an array for an element and returns the index of that element.",
 			"brokenpath": "recurr1.js",
-			"tester": "recsearchtester.js.js"
+			"tester": "recsearchtester.js"
 		},
 		"recurr2": {
 			"description": "Recursively searches an array for an element and returns the index of that element.",
 			"brokenpath": "recurr2.js",
-			"tester": "recsearchtester.js.js"
+			"tester": "recsearchtester.js"
 		},
 		"recurr3": {
 			"description": "Recursively searches an array for an element and returns the index of that element.",
 			"brokenpath": "recurr3.js",
-			"tester": "recsearchtester.js.js"
+			"tester": "recsearchtester.js"
 		}
 	},
 	"5": {
 		"selec1": {
 			"description": "Sorts an array in decreasing order.",
 			"brokenpath": "selectionsort.js",
-			"tester": "sel_sort_tester.js.js"
+			"tester": "sel_sort_tester.js"
 		},
 		"selec2": {
 			"description": "Sorts an array in decreasing order.",
 			"brokenpath": "selectionsort2.js",
-			"tester": "sel_sort_tester.js.js"
+			"tester": "sel_sort_tester.js"
 		},
 		"selec3": {
 			"description": "Sorts an array in decreasing order.",
 			"brokenpath": "selectionsort3.js",
-			"tester": "sel_sort_tester.js.js"
+			"tester": "sel_sort_tester.js"
 		}
 	}
 }

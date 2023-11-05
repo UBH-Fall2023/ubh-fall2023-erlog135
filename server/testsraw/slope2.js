@@ -3,3 +3,5 @@ function calculate_slope(a, b) {
 	let x_diff = b.x - a.x;
 	return y_diff - x_diff;
 }
+
+export { calculate_slope };

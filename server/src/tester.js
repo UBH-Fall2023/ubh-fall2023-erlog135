@@ -14,7 +14,7 @@ class Tester {
 
 			let randpuzz = Object.keys(tests[diff])[randomInt(0, Object.keys(tests[diff]).length)];
 			out.push({"name": randpuzz, "content": tests[diff][randpuzz]});
-
+			// console.log(randpuzz);
 			n--;
 			diff++;
 		}
@@ -27,6 +27,7 @@ class JSTester extends Tester {
 		try{
 			const { error, stdout, stderr } = await asyncExec('node', ['./server/testers/' + data['tester'], '../user/' + filename]);
 			if(error) {
+				console.error(error);
 				return -1;
 			}
 			return 0;

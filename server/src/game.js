@@ -11,7 +11,7 @@ class Game {
 	running = false;
 	pc = 0;
 
-	puzzleCount = 5;
+	puzzleCount = 6;
 
 	constructor(io, id) {
 		this.io = io;
