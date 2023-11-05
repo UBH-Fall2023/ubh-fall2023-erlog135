@@ -45,7 +45,7 @@ class GameManager {
 	}
 
 	startGame(player) {
-		games[players[player].gameId].startGame();
+		this.games[this.players[player].gameId].startGame();
 	}
 
 	submitPuzzle(player, puzzle_id, player_code) {
