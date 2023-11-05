@@ -22,6 +22,8 @@ let nicknameInput = document.getElementById("nicknameInput");
 let resetButton = document.getElementById("resetButton");
 let submitButton = document.getElementById("submitButton");
 let editorElement = document.getElementById("editor");
+let winnerBanner = document.getElementById("winnerBanner");
+let winnerText = document.getElementById("winnerText");
 
 let nickname = "";
 
@@ -101,9 +103,15 @@ async function onGameStart(){
         displayPuzzle();
         editorElement.classList.replace("bg-glow-focus","bg-glow-ambient");
     }
+}
 
-
-
+async function onGameEnd(winnerName){
+    game_state = GAME_END;
+    winnerBanner.style.display = "block";
+    winnerText.innerText = winnerName + " wins!!!"
+    await wait(4000);
+    winnerBanner.style.display = "none";
+    onLobbyJoined();
 }
 
 function displayPuzzle(){
@@ -140,8 +148,13 @@ function onSubmitButtonClicked(){
 
 
 socket.on("new-puzzle", (puzzle)=>{
+    console.log(puzzle);
     let lines = puzzle["code"].split("\n");
+
     puzzle["footer"] = lines.pop();
+    while(puzzle["footer"] === ""){
+        puzzle["footer"] = lines.pop();
+    }
 
     let code = "";
 
@@ -163,9 +176,12 @@ socket.on("game-start", (args)=>{
 
 socket.on("failed-puzzle", async (args)=>{
     editorElement.classList.replace("bg-glow-ambient","bg-glow-error");
+    submitButton.disabled = true;
+    submitButton.innerText = "Failed!";
     await wait(1000);
     editorElement.classList.replace("bg-glow-error","bg-glow-ambient");
-
+    submitButton.disabled = false;
+    submitButton.innerText = "Submit";
 });
 
 socket.on("players", (newPlayers)=>{
@@ -189,8 +205,9 @@ socket.on("player-leave", (args)=>{
 
 });
 
-socket.on("game-end", (args)=>{
-
+socket.on("game-end", (player)=>{
+    //player 's name won!
+    onGameEnd(players[player]);
 });
 
 socket.on("chosen-one", (args)=>{
