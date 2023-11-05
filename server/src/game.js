@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "fs/promises";
 import { JSTester } from "./tester.js";
+import { randomInt } from "crypto";
 
 class Game {
 	static MAX_PLAYERS = 16;
@@ -32,10 +33,10 @@ class Game {
 
 	leave(player) {
 		this.pc--;
-		this.io.to(this.id).emit("player-leave", player);
+		delete this.players[player];
 		if (this.chosen == player) {
 			let p =
-				this.player[
+				this.players[
 					Object.keys(this.players)[
 						randomInt(0, Object.keys(this.players).length)
 					]
@@ -43,7 +44,7 @@ class Game {
 			this.chosen = p.id;
 			this.io.to(p.id).emit("chosen-one");
 		}
-		delete this.players[player];
+		this.io.to(this.id).emit("player-leave", player);
 	}
 
 	async startGame() {
