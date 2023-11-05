@@ -47,7 +47,7 @@ class Game {
 			description: this.puzzles[0]["content"]["description"],
 			code: await (
 				await fetch(
-					"server/testsraw/" +
+					"/server/testsraw/" +
 						this.puzzles[0]["content"]["brokenpath"]
 				)
 			).text(),
