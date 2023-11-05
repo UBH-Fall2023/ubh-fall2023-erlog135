@@ -77,14 +77,17 @@ class Game {
 	}
 
 	async sendNextPuzz(player) {
+		const g = await readFile(
+			"server/testsraw/" +
+				this.puzzles[player.curr_puzz]["content"]["brokenpath"],
+			"utf8"
+		);
+		console.log(g);
 		const puzz = {
 			name: this.puzzles[player.curr_puzz]["name"],
 			description:
 				this.puzzles[player.curr_puzz]["content"]["description"],
-			code: await readFile(
-				"server/testsraw/" +
-					this.puzzles[player.curr_puzz]["content"]["brokenpath"]
-			),
+			code: g,
 		};
 		this.io.to(player.id).emit("new-puzzle", puzz);
 	}
