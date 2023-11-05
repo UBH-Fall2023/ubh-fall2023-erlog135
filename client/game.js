@@ -11,6 +11,11 @@ const IN_COUNTDOWN = 2;
 const IN_GAME = 3;
 const GAME_END = 4;
 
+const random_chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()-=_+[]{},.<>/?;:`~"
+
+const TRANSITION_TIME = 1000;
+const TRANSITION_STEPS = 20;
+
 let roomId = window.location.href.substring(window.location.href.length-4,window.location.href.length);
 
 let game_state = BEFORE_LOBBY;
@@ -89,13 +94,16 @@ async function onGameStart(){
         submitButton.disabled = true;
 
         editorElement.classList.replace("bg-glow-ambient","bg-glow-focus");
-        editor.session.setValue("Ready...");
-        await wait(1000);
-        editor.session.setValue("Get set...");
-        await wait(1000);
-        editor.session.setValue("GO!");
-        await wait(1000);
-        editor.session.setValue("");
+        await dissolve(true);
+
+        await dissolve(false,"Ready...");
+        await wait(500);
+        await dissolve(true);
+        await dissolve(false,"Get set...");
+        await wait(500);
+        await dissolve(true);
+        await dissolve(false,"GO!");
+        await wait(500);
 
 
         submitButton.disabled = false;
@@ -117,11 +125,13 @@ async function onGameEnd(winnerName){
     onLobbyJoined();
 }
 
-function displayPuzzle(){
+async function displayPuzzle(){
     if(game_state === IN_GAME){
-        console.log(currentPuzzle);
+        //console.log(currentPuzzle);
+
+        await dissolve(true);
         description.innerText = currentPuzzle["description"];
-        editor.session.setValue(originalPuzzleText);
+        await dissolve(false, originalPuzzleText);
         editor.setReadOnly(false);
     }
 }
@@ -247,4 +257,33 @@ socket.on("failed-connect", (args)=>{
 //from stack overflow
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function dissolve(dissolve, text=""){
+    let stages = [(text!="" ? text : editor.session.getValue())];
+    if(stages[0] === ""){
+        return;
+    }
+    for(let step = 1; step < TRANSITION_STEPS; step++){
+        let prevStage = stages[step-1].repeat(1);
+        let nextStage = "";
+        for(let char in prevStage){
+            let willDelete = Math.random() < step/TRANSITION_STEPS;
+            if(prevStage[char] != " " && prevStage[char] != "\n" && prevStage[char] != "\t"){
+                nextStage += (willDelete ? " " : random_chars[Math.round(Math.random()*(random_chars.length-1))]);
+            }else{
+                nextStage+=prevStage[char];
+            }
+        }
+        stages.push(nextStage);
+    }
+
+    if(!dissolve){
+        stages.reverse();
+    }
+
+    for(const stage of stages){
+        await wait(TRANSITION_TIME/TRANSITION_STEPS);
+        editor.session.setValue(stage);
+    }
 }
