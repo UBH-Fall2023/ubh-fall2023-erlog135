@@ -40,7 +40,7 @@ class Game {
 		//create tester and fetch puzzles
 		this.tester = new JSTester();
 		this.puzzles = this.tester.getTests(5);
-		this.io.to(id).emit("game-start");
+		this.io.to(this.id).emit("game-start");
 
 		const puzz = {
 			name: this.puzzles[0]["name"],
@@ -53,7 +53,7 @@ class Game {
 			).text(),
 		};
 
-		this.io.to(id).emit("new-puzzle", puzz);
+		this.io.to(this.id).emit("new-puzzle", puzz);
 	}
 
 	async submitPuzzle(pid, input_code) {
