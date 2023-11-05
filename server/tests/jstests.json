@@ -26,6 +26,63 @@
 			"description": "Inputs: Javascript Object and a String representing a key which may or may not be in the object. \n Outputs: True or False",
 			"brokenpath": "null1.js",
 			"tester": "null1tester.js"
+		},
+		"forloop1": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "forloop1.js",
+			"tester": "forloop1tester.js"
+		},
+		"forloop2": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "forloop2.js",
+			"tester": "forloop1tester.js"
+		},
+		"forloop3": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "forloop3.js",
+			"tester": "forloop1tester.js"
+		},
+		"forloop4": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "forloop4.js",
+			"tester": "forloop1tester.js"
+		},
+		"forloop5": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "forloop5.js",
+			"tester": "forloop1tester.js"
+		}
+	},
+	"2": {
+		"pyth1": {
+			"description": "Input: two integers.\n Output: Distance between values.",
+			"brokenpath": "pyth1.js",
+			"tester": "pyth1tester.js"
+		},
+		"pyth2": {
+			"description": "Input: two integers.\n Output: Distance between values.",
+			"brokenpath": "pyth2.js",
+			"tester": "pyth1tester.js"
+		},
+		"lastinarray": {
+			"description": "Input: An array of arrays [ [ ] [ ] ].\n Output: The very last value of all arrays.",
+			"brokenpath": "lastinarrays.js",
+			"tester": "liattester.js"
+		},
+		"stringtonum1": {
+			"description": "Input: string of numbers ex \"12345\". \n Output: An array of those numbers.",
+			"brokenpath": "numtostring1.js",
+			"tester": "numtostringtester.js"
+		},
+		"stringtonum2": {
+			"description": "Input: string of numbers ex \"12345\". \n Output: An array of those numbers.",
+			"brokenpath": "numtostring2.js",
+			"tester": "numtostringtester.js"
+		},
+		"counter": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "wrongincorder.js",
+			"tester": "counttester.js"
 		}
 	}
 }

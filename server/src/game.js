@@ -21,17 +21,28 @@ class Game {
 		if (this.running) return -1;
 		if (this.players.hasOwnProperty(player)) return -1;
 		if (this.pc >= Game.MAX_PLAYERS) return -1;
-		this.pc++;
 		this.players[player.id] = player;
 		if (this.pc == 0) {
 			this.io.to(player.id).emit("chosen-one");
+			this.chosen = player;
 		}
+		this.pc++;
 		return 0;
 	}
 
 	leave(player) {
 		this.pc--;
 		this.io.to(this.id).emit("player-leave", player);
+		if (this.chosen == player) {
+			let p =
+				this.player[
+					Object.keys(this.players)[
+						randomInt(0, Object.keys(this.players).length)
+					]
+				];
+			this.chosen = p.id;
+			this.io.to(p.id).emit("chosen-one");
+		}
 		delete this.players[player];
 	}
 
@@ -56,6 +67,7 @@ class Game {
 	}
 
 	async submitPuzzle(pid, input_code) {
+		if (!this.running) return;
 		let player = this.players[pid];
 		let puzzle_data = this.puzzles[player.curr_puzz];
 		await writeFile("server/user/" + pid.toString() + ".js", input_code);
