@@ -8,6 +8,18 @@ body {
     box-shadow: 0 0 80px skyblue;
 }
 
+.bg-glow-focus{
+    box-shadow: 0 0 40px gray;
+}
+
+.bg-glow-error{
+    box-shadow: 0 0 80px tomato;
+}
+
+.bg-glow-waiting{
+    box-shadow: 0 0 40px skyblue;
+}
+
 .text-center{
     text-align: center;
 }

@@ -14,7 +14,8 @@ const GAME_END = 4;
 let game_state = BEFORE_LOBBY;
 let chosenOne = true;
 
-let puzzle = 0;
+let originalPuzzleText = "";
+let currentPuzzle = {};
 
 let description = document.getElementById("description");
 let nicknameInput = document.getElementById("nicknameInput");
@@ -80,6 +81,7 @@ async function onGameStart(){
         game_state == IN_COUNTDOWN;
         submitButton.innerText = "Submit";
         submitButton.disabled = true;
+
         editor.session.setValue("Ready...");
         await wait(1000);
         editor.session.setValue("Get set...");
@@ -87,18 +89,32 @@ async function onGameStart(){
         editor.session.setValue("GO!");
         await wait(1000);
         editor.session.setValue("");
+
         submitButton.disabled = false;
+        resetButton.style.display = "block";
+
         game_state = IN_GAME;
+        displayPuzzle();
     }
 
 
 
 }
 
+function displayPuzzle(){
+    if(game_state === IN_GAME){
+        console.log(currentPuzzle);
+        description.innerText = currentPuzzle["description"];
+        editor.session.setValue(originalPuzzleText);
+        editor.setReadOnly(false);
+    }
+}
 
 
 function onResetButtonClicked(){
-    console.log("reset clicked");
+    if(game_state === IN_GAME){
+        editor.session.setValue(originalPuzzleText);
+    }
 }
 
 function onSubmitButtonClicked(){
@@ -111,13 +127,27 @@ function onSubmitButtonClicked(){
         onGameStart();
         socket.emit("start-game");
     }else if(game_state === IN_GAME){
+        let userSolution = editor.session.getValue()+currentPuzzle["footer"];
+        console.log(userSolution);
         socket.emit("submit", userSolution);
     }
 }
 
 
 socket.on("new-puzzle", (puzzle)=>{
-    console.log(puzzle);
+    let lines = puzzle["code"].split("\n");
+    puzzle["footer"] = lines.pop();
+    
+    let code = "";
+
+    for (const line in lines) {
+        lines[line] = lines[line]+"\n";
+        code += lines[line];
+    }
+    puzzle["code"] = code;
+    currentPuzzle = puzzle;
+    originalPuzzleText = puzzle["code"];
+    
 });
 
 socket.on("game-start", (args)=>{
