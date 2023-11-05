@@ -57,10 +57,10 @@ async function onLobbyJoined(){
 
     if(chosenOne){
         submitButton.innerText = "Start";
-        submitButton.setAttribute("disabled",false);
+        submitButton.disabled = false;
     }else{
         submitButton.innerText = "Waiting...";
-        submitButton.setAttribute("disabled",true);
+        submitButton.disabled = true;
     }
     
 
@@ -75,15 +75,18 @@ async function onLobbyJoined(){
 }
 
 async function onGameStart(){
-    game_state == IN_COUNTDOWN
-    editor.session.setValue("3");
+    game_state == IN_COUNTDOWN;
+    submitButton.innerText = "Submit";
+    submitButton.disabled = true;
+    editor.session.setValue("Ready...");
     await wait(1000);
-    editor.session.setValue("2");
+    editor.session.setValue("Get set...");
     await wait(1000);
-    editor.session.setValue("1");
+    editor.session.setValue("GO!");
     await wait(1000);
-    
-    
+    editor.session.setValue("");
+    submitButton.disabled = false;
+    game_state = IN_GAME;
 
 }
 
@@ -97,12 +100,13 @@ function onSubmitButtonClicked(){
     console.log("submit clicked");
     if (game_state === BEFORE_LOBBY && nicknameInput.value.length >= 1 && nicknameInput.value.length <= 16) {
         nickname = nicknameInput.value;
+        socket.emit("nick-name",nickname);
         onLobbyJoined();
     }else if(game_state === IN_LOBBY && chosenOne){
         onGameStart();
         socket.emit("game-start");
     }else if(game_state === IN_GAME){
-        socket.emit("submit", puzzleId, userSolution);
+        socket.emit("submit", userSolution);
     }
 }
 
@@ -115,14 +119,21 @@ socket.on("game-start", (args)=>{
 
 });
 
-socket.on("player-joined", (playerId, playerName)=>{
-    players[playerId] = playerName;
-    if(game_state === BEFORE_LOBBY){
-        playersToAdd.push(playerName);
-    }else if(game_state === IN_LOBBY){
-        editor.moveCursorTo(Math.round(Math.random()*10),Math.round(Math.random()*50));
-        editor.insert(playerName);
+socket.on("players", (newPlayers)=>{
+
+    for(const id in newPlayers){
+        if(!players.hasOwnProperty(id)){
+            playersToAdd.push(newPlayers[id]);
+        }
     }
+    if(game_state === IN_LOBBY){
+        for (const name of playersToAdd) {
+            editor.moveCursorTo(Math.round(Math.random()*10),Math.round(Math.random()*50));
+            editor.insert(name);
+        }
+    }
+    players = newPlayers;
+    console.log(newPlayers);
 });
 
 socket.on("player-leave", (args)=>{
@@ -137,7 +148,7 @@ socket.on("chosen-one", (args)=>{
     chosenOne = true;
     if(game_state === IN_LOBBY){
         submitButton.innerText = "Start";
-        submitButton.setAttribute("disabled",false);
+        submitButton.disabled = false;
     }
 });
 
