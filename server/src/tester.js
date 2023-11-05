@@ -1,4 +1,3 @@
-import { cwd } from "node:process";
 import tests from "../tests/jstests.json" with { type: "json" };
 import util from "node:util";
 import { execFile } from 'node:child_process';
@@ -7,19 +6,17 @@ const asyncExec = util.promisify(execFile);
 
 class Tester {
 	getTests(n) {
-		let perdiff = Math.ceil(Object.keys(tests).length / n);
-		let ex = n % Object.keys(tests).length;
+		let diffs = Object.keys(tests).length;
+		let diff = 0;
 		let out = [];
-		for (let i = 0; i < Object.keys(tests).length; i++) {
-			let j;
-			for (j = 0; j < perdiff; j++) {
-				let randpuzz = Object.keys(tests[i])[randomInt(0, Object.keys(tests[i]).length)];
-				out.push({"name": randpuzz, "content": tests[i][randpuzz]});
-			}
-			if(ex > 0) {
-				j--;
-				ex--;
-			}
+		while(n > 0) {
+			if(diff >= diffs) diff = 0;
+
+			let randpuzz = Object.keys(tests[diff])[randomInt(0, Object.keys(tests[diff]).length)];
+			out.push({"name": randpuzz, "content": tests[diff][randpuzz]});
+
+			n--;
+			diff++;
 		}
 		return  out;
 	}

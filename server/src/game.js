@@ -39,7 +39,7 @@ class Game {
 		this.running = true;
 		//create tester and fetch puzzles
 		this.tester = new JSTester();
-		this.puzzles = this.tester.getTests(5);
+		this.puzzles = this.tester.getTests(this.puzzleCount);
 		this.io.to(this.id).emit("game-start");
 
 		let g = await readFile(
@@ -66,9 +66,13 @@ class Game {
 		if (r == 0) {
 			player.curr_puzz++;
 			if (player.curr_puzz >= this.puzzleCount) {
-				//win state
-				//do later
-				//after you fix all the broken shit
+				this.running = false;
+				for (const k in this.players) {
+					this.players[k].curr_puzz = 0;
+				}
+				this.puzzles = [];
+				this.io.to(this.id).emit("game-end", player.id);
+				return;
 			}
 			this.sendNextPuzz(player);
 		} else {
@@ -82,7 +86,6 @@ class Game {
 				this.puzzles[player.curr_puzz]["content"]["brokenpath"],
 			"utf8"
 		);
-		console.log(g);
 		const puzz = {
 			name: this.puzzles[player.curr_puzz]["name"],
 			description:

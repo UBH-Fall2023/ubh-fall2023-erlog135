@@ -18,7 +18,7 @@
 	},
 	"1": {
 		"null1": {
-			"description": "Inputs: Javascript Object and a String representing a key which may or may not be the object. \n Outputs: True or False",
+			"description": "Inputs: Javascript Object and a String representing a key which may or may not be in the object. \n Outputs: True or False",
 			"brokenpath": "null1.js",
 			"tester": "null1tester.js"
 		}
