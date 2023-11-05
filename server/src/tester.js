@@ -6,7 +6,7 @@ const asyncExec = util.promisify(execFile);
 
 class Tester {
 	getTests(n) {
-		return {"name": "syntax1", "content": tests[0]["syntax1"] };
+		return [{"name": "syntax1", "content": tests[0]["syntax1"] }];
 	}
 }
 
