@@ -21,6 +21,7 @@ let description = document.getElementById("description");
 let nicknameInput = document.getElementById("nicknameInput");
 let resetButton = document.getElementById("resetButton");
 let submitButton = document.getElementById("submitButton");
+let editorElement = document.getElementById("editor");
 
 let nickname = "";
 
@@ -38,8 +39,8 @@ let playersToAdd = [];
 
 function onRoomJoined(){
     description.innerText = "Enter your nickname and press Join."
-    resetButton.ariaDisabled = true;
-    resetButton.style.display = "none";
+    resetButton.disabled = true;
+    resetButton.hidden = true;
     submitButton.innerText = "Join";
 }
 
@@ -65,8 +66,8 @@ async function onLobbyJoined(){
     }
     
 
-    nicknameInput.style.display = "none";
-    document.getElementById("editor").style.display = "block";
+    nicknameInput.hidden = true;
+    editorElement.hidden = false;
 
     for(const player of playersToAdd){
         editor.moveCursorTo(Math.round(Math.random()*10),Math.round(Math.random()*50));
@@ -82,6 +83,7 @@ async function onGameStart(){
         submitButton.innerText = "Submit";
         submitButton.disabled = true;
 
+        editorElement.classList.replace("bg-glow-ambient","bg-glow-focus");
         editor.session.setValue("Ready...");
         await wait(1000);
         editor.session.setValue("Get set...");
@@ -90,11 +92,14 @@ async function onGameStart(){
         await wait(1000);
         editor.session.setValue("");
 
+
         submitButton.disabled = false;
-        resetButton.style.display = "block";
+        resetButton.disabled = false;
+        resetButton.hidden = false;
 
         game_state = IN_GAME;
         displayPuzzle();
+        editorElement.classList.replace("bg-glow-focus","bg-glow-ambient");
     }
 
 
@@ -137,7 +142,7 @@ function onSubmitButtonClicked(){
 socket.on("new-puzzle", (puzzle)=>{
     let lines = puzzle["code"].split("\n");
     puzzle["footer"] = lines.pop();
-    
+
     let code = "";
 
     for (const line in lines) {
@@ -147,11 +152,20 @@ socket.on("new-puzzle", (puzzle)=>{
     puzzle["code"] = code;
     currentPuzzle = puzzle;
     originalPuzzleText = puzzle["code"];
-    
+    if(game_state === IN_GAME){
+        displayPuzzle();
+    }
 });
 
 socket.on("game-start", (args)=>{
     onGameStart();
+});
+
+socket.on("failed-puzzle", async (args)=>{
+    editorElement.classList.replace("bg-glow-ambient","bg-glow-error");
+    await wait(1000);
+    editorElement.classList.replace("bg-glow-error","bg-glow-ambient");
+
 });
 
 socket.on("players", (newPlayers)=>{

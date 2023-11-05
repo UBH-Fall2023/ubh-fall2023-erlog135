@@ -31,7 +31,10 @@ body {
 
 .home-button{
     color: white;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 8px;
     font-size: 30px;
+    font-weight: bold;
     background-color: transparent;
     border: 2px solid deepskyblue;
     width: 100%;
