@@ -10,7 +10,7 @@ class Game {
 	running = false;
 	pc = 0;
 
-	puzzleCount = 1;
+	puzzleCount = 5;
 
 	constructor(io, id) {
 		this.io = io;
@@ -58,13 +58,10 @@ class Game {
 	async submitPuzzle(pid, input_code) {
 		let player = this.players[pid];
 		let puzzle_data = this.puzzles[player.curr_puzz];
-		let r = -1;
-		writeFile(
-			"/server/user/" + pid.toString() + ".js",
-			input_code,
-			async () => {
-				r = await this.tester.test(puzzle_data, pid.toString() + ".js");
-			}
+		await writeFile("server/user/" + pid.toString() + ".js", input_code);
+		let r = await this.tester.test(
+			puzzle_data["content"],
+			pid.toString() + ".js"
 		);
 		if (r == 0) {
 			player.curr_puzz++;
@@ -84,12 +81,10 @@ class Game {
 			name: this.puzzles[player.curr_puzz]["name"],
 			description:
 				this.puzzles[player.curr_puzz]["content"]["description"],
-			code: await (
-				await fetch(
-					"server/testsraw/" +
-						this.puzzles[player.curr_puzz]["content"]["brokenpath"]
-				)
-			).text(),
+			code: await readFile(
+				"server/testsraw/" +
+					this.puzzles[player.curr_puzz]["content"]["brokenpath"]
+			),
 		};
 		this.io.to(player.id).emit("new-puzzle", puzz);
 	}
