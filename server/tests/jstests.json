@@ -69,20 +69,61 @@
 			"brokenpath": "lastinarrays.js",
 			"tester": "liattester.js"
 		},
-		"stringtonum1": {
-			"description": "Input: string of numbers ex \"12345\". \n Output: An array of those numbers.",
-			"brokenpath": "numtostring1.js",
-			"tester": "numtostringtester.js"
-		},
-		"stringtonum2": {
-			"description": "Input: string of numbers ex \"12345\". \n Output: An array of those numbers.",
-			"brokenpath": "numtostring2.js",
-			"tester": "numtostringtester.js"
-		},
 		"counter": {
 			"description": "Find the error in this code segment.",
 			"brokenpath": "wrongincorder.js",
 			"tester": "counttester.js"
+		}
+	},
+	"3": {
+		"2darr": {
+			"description": "Creates a 2D array of zeros with rows number of rows and columns number of columns.",
+			"brokenpath": "create2darr.js",
+			"tester": "2darrtester.js"
+		},
+		"slope1": {
+			"description": "Input: Two objects with x and y properties. \n Output the slope of the line between those points.",
+			"brokenpath": "slope1.js",
+			"tester": "slopetester.js"
+		},
+		"slope2": {
+			"description": "Input: Two objects with x and y properties. \n Output the slope of the line between those points.",
+			"brokenpath": "slope2.js",
+			"tester": "slopetester.js"
+		}
+	},
+	"4": {
+		"recurr1": {
+			"description": "Recursively searches an array for an element and returns the index of that element.",
+			"brokenpath": "recurr1.js",
+			"tester": "recsearchtester.js.js"
+		},
+		"recurr2": {
+			"description": "Recursively searches an array for an element and returns the index of that element.",
+			"brokenpath": "recurr2.js",
+			"tester": "recsearchtester.js.js"
+		},
+		"recurr3": {
+			"description": "Recursively searches an array for an element and returns the index of that element.",
+			"brokenpath": "recurr3.js",
+			"tester": "recsearchtester.js.js"
+		}
+	},
+	"5": {
+		"selec1": {
+			"description": "Sorts an array in decreasing order.",
+			"brokenpath": "selectionsort.js",
+			"tester": "sel_sort_tester.js.js"
+		},
+		"selec2": {
+			"description": "Sorts an array in decreasing order.",
+			"brokenpath": "selectionsort2.js",
+			"tester": "sel_sort_tester.js.js"
+		},
+		"selec3": {
+			"description": "Sorts an array in decreasing order.",
+			"brokenpath": "selectionsort3.js",
+			"tester": "sel_sort_tester.js.js"
 		}
 	}
 }
