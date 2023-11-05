@@ -4,6 +4,23 @@
 			"description": "Find the error in this code segment.",
 			"brokenpath": "syntax1.js",
 			"tester": "syntax1tester.js"
+		},
+		"syntax2": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "syntax2.js",
+			"tester": "syntax1tester.js"
+		},
+		"syntax3": {
+			"description": "Find the error in this code segment.",
+			"brokenpath": "syntax3.js",
+			"tester": "syntax1tester.js"
+		}
+	},
+	"1": {
+		"null1": {
+			"description": "Inputs: Javascript Object and a String representing a key which may or may not be the object. \n Outputs: True or False",
+			"brokenpath": "null1.js",
+			"tester": "null1tester.js"
 		}
 	}
 }
