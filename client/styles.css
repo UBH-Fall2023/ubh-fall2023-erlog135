@@ -4,6 +4,10 @@ body {
     color: white;
 }
 
+.bg-glow-none{
+    box-shadow: 0 0 1px skyblue;
+}
+
 .bg-glow-ambient{
     box-shadow: 0 0 80px skyblue;
 }
