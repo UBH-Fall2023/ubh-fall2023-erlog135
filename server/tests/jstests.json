@@ -2,7 +2,7 @@
 	"0": {
 		"syntax1": {
 			"description": "Find the error in this code segment.",
-			"brokenpath": "server/testsraw/syntax1.js",
+			"brokenpath": "syntax1.js",
 			"tester": "syntax1tester.js"
 		}
 	}
