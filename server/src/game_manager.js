@@ -48,8 +48,12 @@ class GameManager {
 		games[players[player].gameId].startGame();
 	}
 
-	submitPuzzle(player, player_code) {
-		//todo
+	submitPuzzle(player, puzzle_id, player_code) {
+		this.games[this.players[player]].submitPuzzle(
+			player,
+			puzzle_id,
+			player_code
+		);
 	}
 }
 

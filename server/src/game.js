@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { writeFile } from "fs";
 import { JSTester } from "./tester.js";
 
 class Game {
@@ -47,12 +47,56 @@ class Game {
 			description: this.puzzles[0]["content"]["description"],
 			code: await (
 				await fetch(
-					"server/testsraw/" + puzzle[0]["content"]["brokenpath"]
+					"server/testsraw/" +
+						this.puzzles[0]["content"]["brokenpath"]
 				)
 			).text(),
 		};
 
 		this.io.to(id).emit("new-puzzle", puzz);
+	}
+
+	async submitPuzzle(pid, input_code) {
+		let player = this.players[pid];
+		let puzzle_data = this.puzzles[player.curr_puzz];
+		let r = -1;
+		writeFile(
+			"/server/user/" + pid.toString() + ".js",
+			input_code,
+			async () => {
+				r = await this.tester.test(puzzle_data, pid.toString() + ".js");
+			}
+		);
+		if (r == 0) {
+			player.curr_puzz++;
+			if (player.curr_puzz >= this.puzzleCount) {
+				//win state
+				//do later
+				//after you fix all the broken shit
+			}
+			this.sendNextPuzz(player);
+		} else {
+			this.failedPuzz(player);
+		}
+	}
+
+	async sendNextPuzz(player) {
+		const puzz = {
+			name: this.puzzles[player.curr_puzz]["name"],
+			description:
+				this.puzzles[player.curr_puzz]["content"]["description"],
+			code: await (
+				await fetch(
+					"server/testsraw/" +
+						this.puzzles[player.curr_puzz]["content"]["brokenpath"]
+				)
+			).text(),
+		};
+		this.io.to(player.id).emit("new-puzzle", puzz);
+	}
+
+	failedPuzz(player) {
+		this.io.to(player.id).emit("failed-puzzle");
 	}
 }
 

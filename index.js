@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("submit", (puzzle, user_code) => {
-		gameManager.submitPuzzle(socket.id, user_code);
+		gameManager.submitPuzzle(socket.id, puzzle, user_code);
 	});
 });
 
