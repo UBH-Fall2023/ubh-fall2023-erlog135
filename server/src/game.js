@@ -78,7 +78,7 @@ class Game {
 			pid.toString() + ".js"
 		);
 		if (r == 0) {
-			this.to.to(player.id).emit("passed-puzzle");
+			this.io.to(player.id).emit("passed-puzzle");
 			player.curr_puzz++;
 			if (player.curr_puzz >= this.puzzleCount) {
 				this.running = false;
