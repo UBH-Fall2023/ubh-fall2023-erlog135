@@ -31,8 +31,10 @@ class GameManager {
 	}
 
 	playerLeft(player) {
-		this.games[this.players[player].gameId].leave(player);
+		let gid = this.players[player].gameId;
+		this.games[gid].leave(player);
 		delete this.players[player];
+		if (this.games[gid].pc < 1) delete this.games[gid];
 	}
 
 	setPlayerName(player, nickname) {

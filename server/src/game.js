@@ -25,7 +25,7 @@ class Game {
 		this.players[player.id] = player;
 		if (this.pc == 0) {
 			this.io.to(player.id).emit("chosen-one");
-			this.chosen = player;
+			this.chosen = player.id;
 		}
 		this.pc++;
 		return 0;
@@ -34,6 +34,8 @@ class Game {
 	leave(player) {
 		this.pc--;
 		delete this.players[player];
+		this.io.to(this.id).emit("player-leave", player);
+		if (this.pc < 1) return;
 		if (this.chosen == player) {
 			let p =
 				this.players[
@@ -44,7 +46,6 @@ class Game {
 			this.chosen = p.id;
 			this.io.to(p.id).emit("chosen-one");
 		}
-		this.io.to(this.id).emit("player-leave", player);
 	}
 
 	async startGame() {
