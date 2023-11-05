@@ -75,18 +75,23 @@ async function onLobbyJoined(){
 }
 
 async function onGameStart(){
-    game_state == IN_COUNTDOWN;
-    submitButton.innerText = "Submit";
-    submitButton.disabled = true;
-    editor.session.setValue("Ready...");
-    await wait(1000);
-    editor.session.setValue("Get set...");
-    await wait(1000);
-    editor.session.setValue("GO!");
-    await wait(1000);
-    editor.session.setValue("");
-    submitButton.disabled = false;
-    game_state = IN_GAME;
+    if(game_state == IN_LOBBY){
+
+        game_state == IN_COUNTDOWN;
+        submitButton.innerText = "Submit";
+        submitButton.disabled = true;
+        editor.session.setValue("Ready...");
+        await wait(1000);
+        editor.session.setValue("Get set...");
+        await wait(1000);
+        editor.session.setValue("GO!");
+        await wait(1000);
+        editor.session.setValue("");
+        submitButton.disabled = false;
+        game_state = IN_GAME;
+    }
+
+
 
 }
 
@@ -104,19 +109,19 @@ function onSubmitButtonClicked(){
         onLobbyJoined();
     }else if(game_state === IN_LOBBY && chosenOne){
         onGameStart();
-        socket.emit("game-start");
+        socket.emit("start-game");
     }else if(game_state === IN_GAME){
         socket.emit("submit", userSolution);
     }
 }
 
 
-socket.on("new-puzzle", (args)=>{
-
+socket.on("new-puzzle", (puzzle)=>{
+    console.log(puzzle);
 });
 
 socket.on("game-start", (args)=>{
-
+    onGameStart();
 });
 
 socket.on("players", (newPlayers)=>{
