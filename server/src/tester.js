@@ -12,7 +12,7 @@ class Tester {
 
 class JSTester extends Tester {
 	async test(data, filename) {
-		const { error, stdout, stderr } = await asyncExec('node', ['./testers/' + data['tester'], '../user/' + filename]);
+		const { error, stdout, stderr } = await asyncExec('node', ['./server/testers/' + data['tester'], '../user/' + filename]);
 		if(error) {
 			return -1;
 		}
