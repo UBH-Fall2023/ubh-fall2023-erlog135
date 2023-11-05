@@ -38,7 +38,7 @@ class GameManager {
 	setPlayerName(player, nickname) {
 		this.players[player].nickname = nickname;
 		let tp = {};
-		for (const p of this.players.keys()) {
+		for (const p in this.players) {
 			tp[p] = p.nickname;
 		}
 		this.io.to(this.players[player].gameId).emit("players", tp);
