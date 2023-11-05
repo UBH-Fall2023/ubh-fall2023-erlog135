@@ -1,4 +1,4 @@
-import { writeFile } from "fs";
+import { readFile, writeFile } from "fs/promises";
 import { JSTester } from "./tester.js";
 
 class Game {
@@ -42,17 +42,16 @@ class Game {
 		this.puzzles = this.tester.getTests(5);
 		this.io.to(this.id).emit("game-start");
 
-		const puzz = {
+		let g = await readFile(
+			"server/testsraw/" + this.puzzles[0]["content"]["brokenpath"],
+			"utf8"
+		);
+
+		let puzz = {
 			name: this.puzzles[0]["name"],
 			description: this.puzzles[0]["content"]["description"],
-			code: await (
-				await fetch(
-					"/server/testsraw/" +
-						this.puzzles[0]["content"]["brokenpath"]
-				)
-			).text(),
+			code: g,
 		};
-
 		this.io.to(this.id).emit("new-puzzle", puzz);
 	}
 
