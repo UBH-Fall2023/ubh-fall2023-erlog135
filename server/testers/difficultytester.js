@@ -6,7 +6,7 @@ async function main() {
 	let c = difficulty(-323);
 	if (c != 0) process.exit(1);
 	let d = difficulty(420);
-	if (c != 420) process.exit(1);
+	if (d != 420) process.exit(1);
 	process.exit(0);
 }
 
